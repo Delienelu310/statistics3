@@ -1,4 +1,5 @@
 import calculatektimes from "./calculatektimes";
+import { runTheModel2 } from "./model";
 
 export default function calculateData(){
 
@@ -56,3 +57,48 @@ export default function calculateData(){
     return [data, average];
 }
 
+export function calculateData2(){
+
+
+    let 
+        data1 = [], 
+        data2 = [],
+        avg1 = [],
+        avg2 = [];
+
+    for(let n = 10000; n < 1000000; n += 10000){
+        console.log(n);
+        let s1 = 0;
+        let s2 = 0;
+
+        let k;
+        for(k = 0; k < 50; k++){
+            let 
+                l1 = runTheModel2(n, 1),
+                l2 = runTheModel2(n, 2);
+            data1.push({
+                'x': n,
+                'y': l1
+            });
+            data2.push({
+                'x': n,
+                'y': l2
+            });
+            s1 += l1;
+            s2 += l2;
+        }
+        avg1.push({
+            'x': n,
+            'y': s1 / k
+        });
+        avg2.push({
+            'x': n,
+            'y': s2 / k
+        });
+    }
+
+    return {
+        l1: [data1, avg1],
+        l2: [data2, avg2]
+    };
+}

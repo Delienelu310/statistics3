@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Graph from "./components/Graph";
-import calculateData from "./calculations/calculateData";
+import {calculateData2} from "./calculations/calculateData";
 import generateAvgFuncData from "./calculations/averageFunctions";
 import axios from "axios";
 
@@ -12,8 +12,9 @@ function App() {
   useEffect(() => {
 
     // setCalculatedData(calculateData());
-    setCalculatedData2(...);
-    console.log(calculatedData);
+    console.log("Data calculation process started...");
+    setCalculatedData2(calculateData2());
+    console.log(calculatedData2);
 
   }, []);
 
@@ -47,6 +48,17 @@ function App() {
           {label: "(Dn - Cn) / n", data: [[], generateAvgFuncData((avg, n) => avg / n, calculatedData[1].cmd)]},
           {label: "(Dn - Cn) / nln(n)", data: [[], generateAvgFuncData((avg, n) => avg / n / Math.log(n), calculatedData[1].cmd)]},
           {label: "(Dn - Cn) / nln(ln(n))", data: [[], generateAvgFuncData((avg, n) => avg / n / Math.log(Math.log(n)), calculatedData[1].cmd)]},
+        ]}></Graph> 
+      }
+
+      {
+        calculatedData2 && <Graph options={[
+          {label: "l1", data: [calculatedData2.l1[0], calculatedData2.l1[1]]},
+          {label: "l2", data: [calculatedData2.l2[0], calculatedData2.l2[1]]},
+
+          {label: "l1 / f1", data: [[], generateAvgFuncData((avg, n) => avg * Math.log(Math.log(n)) / Math.log(n) , calculatedData2.l1[1])]},
+          {label: "l2 / f2", data: [[], generateAvgFuncData((avg, n) => avg * Math.log(2) / Math.log(Math.log(n)), calculatedData2.l2[1])]},
+          
         ]}></Graph> 
       }
       
