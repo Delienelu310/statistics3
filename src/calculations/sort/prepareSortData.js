@@ -8,7 +8,7 @@ export default function prepareSortData(){
     let all_avg = [];
     let key_avg = [];
 
-    let k = 50;
+    let k = 20;
     for(let n = 100; n <= 10000; n+= 100 ){
         console.log(n);
         let s_keys = 0;

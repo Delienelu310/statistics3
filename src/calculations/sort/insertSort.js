@@ -15,6 +15,9 @@ export default function insertSort(arr){
                 break;
             }
         }
+        if(arr[0] > currentValue){
+            arr[0] = currentValue;
+        }
     }
 
     return {
