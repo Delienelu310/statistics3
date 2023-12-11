@@ -9,13 +9,16 @@ export default function insertSort(arr){
             stat_all++;
             if(arr[j] > currentValue){
                 arr[j + 1] = arr[j];
-            }else{
+            }else if(j + 1 != i){
                 arr[j + 1] = currentValue;
                 stat_keys++;
+                break;
+            }else{
                 break;
             }
         }
         if(arr[0] > currentValue){
+            stat_keys++;
             arr[0] = currentValue;
         }
     }
