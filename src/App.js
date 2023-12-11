@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import Graph from "./components/Graph";
 import {calculateData2} from "./calculations/calculateData";
 import generateAvgFuncData from "./calculations/averageFunctions";
-import axios from "axios";
-
+import prepareSortData from "./calculations/sort/prepareSortData";
 function App() {
 
   const [calculatedData, setCalculatedData] = useState();
   const [calculatedData2, setCalculatedData2] = useState();
+  const [calculatedSortData, setCalculatedSortData] = useState();
 
   useEffect(() => {
 
-    // setCalculatedData(calculateData());
     console.log("Data calculation process started...");
-    setCalculatedData2(calculateData2());
-    console.log(calculatedData2);
+    // setCalculatedData2(calculateData2());
+    // console.log(calculatedData2);
+
+    setCalculatedSortData(prepareSortData);
+    console.log(calculatedSortData);
 
   }, []);
 
@@ -58,6 +60,22 @@ function App() {
 
           {label: "l1 / f1", data: [[], generateAvgFuncData((avg, n) => avg * Math.log(Math.log(n)) / Math.log(n) , calculatedData2.l1[1])]},
           {label: "l2 / f2", data: [[], generateAvgFuncData((avg, n) => avg * Math.log(2) / Math.log(Math.log(n)), calculatedData2.l2[1])]},
+          
+        ]}></Graph> 
+      }
+
+      {
+        calculatedSortData && <Graph options={[
+          //a
+          {label: "cmp(n)", data: [calculatedSortData.all[0], calculatedSortData.all[1]]},
+          //b
+          {label: "s(n)", data:  [calculatedSortData.keys[0], calculatedSortData.keys[1]]},
+          //c
+          {label: "cmp(n)/n", data: [[], generateAvgFuncData((avg, n) => avg / n , calculatedSortData.all[1])]},
+          {label: "cmp(n)/n^2", data: [[], generateAvgFuncData((avg, n) => avg / n / n , calculatedSortData.all[1])]},
+          //d
+          {label: "s(n)/n", data: [[], generateAvgFuncData((avg, n) => avg / n , calculatedSortData.keys[1])]},
+          {label: "s(n)/n^2", data: [[], generateAvgFuncData((avg, n) => avg / n / n , calculatedSortData.keys[1])]},
           
         ]}></Graph> 
       }
